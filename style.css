@@ -1,0 +1,169 @@
+body {
+    background-color: #E1F1FF;
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+#heading{
+    font-size: medium;
+    background-color: #404756;
+    height: 80px;
+    color: #A5C0F6;
+    
+}
+
+h1{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-left: 5px;
+    text-decoration: underline;
+}
+
+.searchBar{
+    margin: auto;
+    padding: 8px;
+    height: 75px;
+}
+#searchText{
+    margin-left: 15%;
+    width: 50%;
+    border-radius: 17px;  
+    height: 40px;
+    margin-top:9px; 
+}
+
+#searchBtn{
+    height: 38px;
+    width: 12%;
+    margin-left: 6px;
+    border-radius: 12px;
+    background-color: #1E8CF0;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif ;
+}
+
+.mainContent{
+    display: flex;
+    margin-left: 100px;
+    justify-content: space-between;
+    margin-right: 100px;
+}
+
+.information{
+    background-color: #A4ABBD;
+    color: #404756;
+    border-radius: 6px;
+    width: 700px;
+    margin-left: 80px;
+
+}
+
+#searchResults{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: oblique;
+    font-size: 24px;
+    background: #4aaae5;
+    margin-top: 0px;
+    height: 45px;
+    text-align: start;
+    border-bottom-right-radius: 35px;
+    border-bottom-color: #E6F4F1;
+    border-style: inset;
+}
+
+.detailedInfo{
+    margin-left: 16px;
+    margin-right: 200px;
+    display: grid;
+}
+
+#singleInformation{
+    background-color: #BEA5A9;
+    width: 500px;
+    height: 500px;
+}
+
+.innerInfo{
+    display: grid;
+    justify-content: center;
+    border-style: double;
+    border-color: #404756;
+}
+
+.comments{
+    display: grid;
+    text-align: right;
+    margin-top: 12px;
+}
+
+#comment{
+    width: 300px;
+    height: 200px;
+    right: 0px;
+    margin-left: 7px;
+    
+}
+
+#commentBtn{
+    width: 72px;
+    height: 28px;
+    align-self: end;
+    margin-top: 8px;
+    background-color: #1E8CF0;
+    border-radius: 12px;
+    
+}
+
+.countryDetails{
+    display: flex;
+    align-items: start;
+}
+
+.value{
+    margin-left: 8px;
+    margin-top: 0px;
+    display: grid;
+    align-items: end;
+}
+
+#countryList{
+    margin-left: -17px;
+}
+
+.singleInfo{
+    display: flex;
+    justify-content: space-between;
+    border: black;
+    border-style: ridge;
+    border-radius: 12px;
+
+}
+
+.respondingButtons{
+    display: grid;
+    align-content: space-around;
+    margin-right: 90px;
+}
+
+.textValues{
+    margin: 8px;
+}
+
+.respbtns{
+    width: 85px;
+    height: 38px;
+    background-color: #2EC193;
+    border-radius: 14px;
+}
+
+.cntryFamily{
+    display: flex;
+    height: 36px;
+}
+
+.info{
+    margin-left: 18px;
+}
+
+.cityInfo{
+    display: flex;
+    margin-top: 12px;
+}
+
