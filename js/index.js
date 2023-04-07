@@ -1,3 +1,5 @@
+
+
 //event listener for dom content loaded
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -8,69 +10,43 @@ document.addEventListener('DOMContentLoaded', () => {
     let unoderedList = document.querySelector('ul#countryList')
     let singleDetailed = document.querySelector('div#singleInformation')
 
-    fetchData("https://wft-geo-db.p.rapidapi.com/v1/geo/countries?limit=10", {
+    //add search functionality
+    searchBtn.addEventListener('click', () => {
+        let name = searchBar.value
+        unoderedList.innerHTML = ''
+        fetchData(`https://wft-geo-db.p.rapidapi.com/v1/geo/countries?namePrefix=${name}&limit=10`).then(resp => {
+            for(const result of resp.data){
+                renderCountry(result, unoderedList, singleDetailed)
+            }
+        })
+    })
+
+    fetchData("https://wft-geo-db.p.rapidapi.com/v1/geo/countries?limit=10").then(result => {
+        for(const country of result.data){
+
+            //iterate over the object and manipulate DOM
+            renderCountry(country, unoderedList, singleDetailed)
+        }
+    })
+})
+
+//fetch data
+async function fetchData(url){
+    const obj ={ 
         method : "GET",
         headers : {
             'X-RapidAPI-Key' : 'a0760444a3msh119cce59cf8be7fp1a083bjsn90c151981805',
             'X-RapidAPI-Host' : 'wft-geo-db.p.rapidapi.com',
             'accept' : 'application/json'
         }
-    }).then(result => {
-        for(const country of result.data){
-
-            //iterate over the object and manipulate DOM
-            let singleCountry =document.createElement('div')
-            singleCountry.className = "singleInfo"
-            singleCountry.innerHTML = `
-
-                            <div class="textValues">
-                                <div class="countryDetails">
-                                    <label for="countryName">Country Name:</label>
-                                    <h3 class="value">${country.name}</h3>
-                                </div>
-                                <div class="countryDetails">
-                                    <label for="abbrv">Abbreviation:</label>
-                                    <h4 class="value">${country.code}</h4>
-                                </div>
-                            </div>
-                            <div class="respondingButtons">
-                                <button class="respbtns" id="moredetails">More Details</button>
-                                <button class="respbtns" id="citiesWithin">PlacesWithin</button>
-                            </div>
-
-
-            `
-            unoderedList.appendChild(singleCountry)
-
-            //add eventListener to the moredetails button
-            let moreDetails = document.querySelector('button#moredetails.respbtns')
-            moreDetails.addEventListener('click', () => {
-                renderDetails(country, singleDetailed)
-            })
-
-            let citiesWithin = document.querySelector('button#citiesWithin.respbtns')
-            citiesWithin.addEventListener('click', () => {
-                renderCities(country, singleDetailed)
-            })
-        }
-    })
-})
-
-//fetch data
-async function fetchData(url, obj){
+    }
     const response = fetch(url, obj).then(result => result.json())
     return response
 }
 
 //render detailed info based on information passed
 function renderDetails(data,element){
-    fetchData(`https://wft-geo-db.p.rapidapi.com/v1/geo/countries/${data.code}`, { method : "GET",
-    headers : {
-        'X-RapidAPI-Key' : 'a0760444a3msh119cce59cf8be7fp1a083bjsn90c151981805',
-        'X-RapidAPI-Host' : 'wft-geo-db.p.rapidapi.com',
-        'accept' : 'application/json'
-    }
-}).then(resp => {
+    fetchData(`https://wft-geo-db.p.rapidapi.com/v1/geo/countries/${data.code}`).then(resp => {
     element.innerHTML = `
     <img src= ${resp.data.flagImageUri} width="200px" height="180px" alt="Flag Image">
 		<div class="cntryFamily">
@@ -93,14 +69,7 @@ function renderDetails(data,element){
 
 //render information on cities
 function renderCities(data, element){
-    fetchData(`https://wft-geo-db.p.rapidapi.com/v1/geo/countries/${data.code}/places?limit=10`, {
-        method : "GET",
-        headers : {
-            'X-RapidAPI-Key' : 'a0760444a3msh119cce59cf8be7fp1a083bjsn90c151981805',
-            'X-RapidAPI-Host' : 'wft-geo-db.p.rapidapi.com',
-            'accept' : 'application/json'
-        }
-    }).then(resp => {
+    fetchData(`https://wft-geo-db.p.rapidapi.com/v1/geo/countries/${data.code}/places?limit=10`).then(resp => {
         for(const result of resp.data){
              let innerInfo = document.createElement('div')
              innerInfo.className = "innerInfo"
@@ -117,8 +86,8 @@ function renderCities(data, element){
                         </div>
                         
                         <div class="cityInfo">
-                            <label for="population">${result.population}</label>
-                            <span class="info">Andora</span>
+                            <label for="population">Population</label>
+                            <span class="info">${result.population}</span>
                         </div>
                         <div class="cityInfo">
                             <label for="region">Region</label>
@@ -140,4 +109,41 @@ function renderCities(data, element){
        
         
     })
+}
+
+//render country
+function renderCountry(data, element, element2){
+    let singleCountry =document.createElement('div')
+            singleCountry.className = "singleInfo"
+            singleCountry.innerHTML = `
+
+                            <div class="textValues">
+                                <div class="countryDetails">
+                                    <label for="countryName">Country Name:</label>
+                                    <h3 class="value">${data.name}</h3>
+                                </div>
+                                <div class="countryDetails">
+                                    <label for="abbrv">Abbreviation:</label>
+                                    <h4 class="value">${data.code}</h4>
+                                </div>
+                            </div>
+                            <div class="respondingButtons">
+                                <button class="respbtns" id="moredetails">More Details</button>
+                                <button class="respbtns" id="citiesWithin">PlacesWithin</button>
+                            </div>
+
+
+            `
+            element.appendChild(singleCountry)
+
+            //add eventListener to the moredetails button
+            let moreDetails = document.querySelector('button#moredetails.respbtns')
+            moreDetails.addEventListener('click', () => {
+                renderDetails(data, element2)
+            })
+
+            let citiesWithin = document.querySelector('button#citiesWithin.respbtns')
+            citiesWithin.addEventListener('click', () => {
+                renderCities(data, element2)
+            })
 }
