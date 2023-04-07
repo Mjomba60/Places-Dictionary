@@ -70,7 +70,7 @@ h1{
 
 .detailedInfo{
     margin-left: 16px;
-    margin-right: 200px;
+    margin-right: 20px;
     display: grid;
     align-content: stretch;
 }
@@ -152,7 +152,7 @@ h1{
 }
 
 .respbtns{
-    width: 85px;
+    width: 95px;
     height: 38px;
     background-color: #2EC193;
     border-radius: 14px;
@@ -170,5 +170,11 @@ h1{
 .cityInfo{
     display: flex;
     margin-top: 12px;
+}
+
+#commentsSection{
+    width: 200px;
+    height: 300px;
+    background-color: #F9F871;
 }
 

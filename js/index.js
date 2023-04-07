@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let searchBtn = document.querySelector('button#searchBtn')
     let unoderedList = document.querySelector('ul#countryList')
     let singleDetailed = document.querySelector('div#singleInformation')
+    let form = document.querySelector('form')
+    let section = document.querySelector('ul#commentsSection')
 
     //add search functionality
     searchBtn.addEventListener('click', () => {
@@ -27,6 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
             //iterate over the object and manipulate DOM
             renderCountry(country, unoderedList, singleDetailed)
         }
+    })
+
+    form.addEventListener('submit', (e)=> {
+        submitComment(e,section)
     })
 })
 
@@ -146,4 +152,29 @@ function renderCountry(data, element, element2){
             citiesWithin.addEventListener('click', () => {
                 renderCities(data, element2)
             })
+}
+
+function submitComment(e, section){
+    e.preventDefault()
+    let obj = {}
+    let value = document.querySelector('input#comment').value
+    obj.comment = value
+    fetch("http://localhost:3000/countries",{
+        method : "POST",
+        headers : {
+            'Content-Type' : 'application/json',
+            'accept' : 'application/json'
+        },
+        body : JSON.stringify(obj)
+    }).then(resp => resp.json())
+    .then(result => {
+        console.log(result, section)
+        
+            let list = document.createElement('li')
+            let commSect = document.createElement('p')
+            commSect.textContent = result.comment
+            list.appendChild(commSect)
+            section.appendChild(list)
+        
+    })
 }
