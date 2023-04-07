@@ -79,6 +79,10 @@ h1{
     background-color: #BEA5A9;
     width: 500px;
     height: 500px;
+    display: grid;
+    justify-content: center;
+    border-style: double;
+    border-color: #404756;
 }
 
 .innerInfo{
