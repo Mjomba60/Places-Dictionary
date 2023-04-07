@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                             <div class="respondingButtons">
                                 <button class="respbtns" id="moredetails">More Details</button>
-                                <button class="respbtns" id="citiesWithin">CitiesWithin</button>
+                                <button class="respbtns" id="citiesWithin">PlacesWithin</button>
                             </div>
 
 
@@ -46,6 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
             let moreDetails = document.querySelector('button#moredetails.respbtns')
             moreDetails.addEventListener('click', () => {
                 renderDetails(country, singleDetailed)
+            })
+
+            let citiesWithin = document.querySelector('button#citiesWithin.respbtns')
+            citiesWithin.addEventListener('click', () => {
+                renderCities(country, singleDetailed)
             })
         }
     })
@@ -84,4 +89,55 @@ function renderDetails(data,element){
                     </div>
     `
 })
+}
+
+//render information on cities
+function renderCities(data, element){
+    fetchData(`https://wft-geo-db.p.rapidapi.com/v1/geo/countries/${data.code}/places?limit=10`, {
+        method : "GET",
+        headers : {
+            'X-RapidAPI-Key' : 'a0760444a3msh119cce59cf8be7fp1a083bjsn90c151981805',
+            'X-RapidAPI-Host' : 'wft-geo-db.p.rapidapi.com',
+            'accept' : 'application/json'
+        }
+    }).then(resp => {
+        for(const result of resp.data){
+             let innerInfo = document.createElement('div')
+             innerInfo.className = "innerInfo"
+            innerInfo.innerHTML = `
+                    
+                        <div class="cityInfo">
+                            <label for="type">Type:</label>
+                            <span class="info">${result.type}</span>
+                        </div>
+                        
+                        <div class="cityInfo">
+                            <label for="cityname">Name:</label>
+                            <span class="info">${result.name}</span>
+                        </div>
+                        
+                        <div class="cityInfo">
+                            <label for="population">${result.population}</label>
+                            <span class="info">Andora</span>
+                        </div>
+                        <div class="cityInfo">
+                            <label for="region">Region</label>
+                            <span class="info">${result.region}</span>
+                        </div>
+                        <div class="cityInfo">
+                            <label for="lat">Latitude</label>
+                            <span class="info">${result.latitude}</span>
+                        </div>
+                        <div class="cityInfo">
+                            <label for="long">Longitude</label>
+                            <span class="info">${result.longitude}</span>
+                        </div>
+                            
+        `
+        element.appendChild(innerInfo)
+        }
+        
+       
+        
+    })
 }

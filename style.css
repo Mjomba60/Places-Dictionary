@@ -77,8 +77,6 @@ h1{
 
 #singleInformation{
     background-color: #BEA5A9;
-    width: 500px;
-    height: 500px;
     display: grid;
     justify-content: center;
     border-style: double;
@@ -90,6 +88,7 @@ h1{
     justify-content: center;
     border-style: double;
     border-color: #404756;
+    margin-top: 8px;
 }
 
 .comments{
