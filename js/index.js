@@ -156,6 +156,7 @@ function renderCountry(data, element, element2){
 
 function submitComment(e, section){
     e.preventDefault()
+    alert("I run in a  local database")
     let obj = {}
     let value = document.querySelector('input#comment').value
     obj.comment = value
