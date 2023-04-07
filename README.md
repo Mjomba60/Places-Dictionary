@@ -45,6 +45,7 @@ clone this repo via https or ssh
 - https://github.com/Mjomba60/Places-Dictionary.git
 - git@github.com:Mjomba60/Places-Dictionary.git
 You might want to run `npm install` to get the local database running to begin working with the comments section
+Then run `npm run dbinit` to initialise the database
 ----------
 
 ## Technologies Used
